@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Update Your Property</h1>
+    <form method="post" action="/listing/<%=listing._id%>?_method=PUT">
+        <label for="title"></label>
+        <input type="text" name="listing[title]" value="<%=listing.title%>">
+        <br>
+        <label for="description"></label>
+        <textarea name="listing[description]" value="<%=listing.description%>"></textarea>
+        <br>
+        <input name="listing[image]" type="text" value="<%=listing.image.url%>">
+        <br>
+        <label for="price"></label>
+        <input type="number" name="listing[price]" value="<%=listing.price%>">
+        <br>
+        <label for="location"></label>
+        <input type="text" name="listing[location]" value="<%=listing.location%>">
+        <br>
+        <label for="country"></label>
+        <input type="text" name="listing[country]" value="<%=listing.country%>">
+        <br>
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>
