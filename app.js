@@ -34,16 +34,9 @@ async function main() {
 
 
 //Index Route
-app.get('/listings',async (req,res)=>{
+app.get('/listing',async (req,res)=>{
     let allListings=await Listing.find({});
     res.render('listings/index.ejs',{allListings})
-})
-
-//Show Route
-app.get('/listings/:id',async (req,res) => {
-    let {id}=req.params;
-    const listing=await Listing.findById(id);
-    res.render('listings/show.ejs',{listing})
 })
 
 //New listing FORM route
@@ -51,12 +44,19 @@ app.get('/listing/new',(req,res)=>{
     res.render('listings/new.ejs')
 })
 
+//Show Route
+app.get('/listing/:id',async (req,res) => {
+    let {id}=req.params;
+    const listing=await Listing.findById(id);
+    res.render('listings/show.ejs',{listing})
+})
+
 //New Listing is added 
 app.post('/listing',async (req,res) => {
     const newListing=await new Listing(req.body.listing)
     newListing.save();
     console.log(newListing);
-    res.redirect('/listings')
+    res.redirect('/listing')
 })
 
 //Listing Update Form
@@ -70,16 +70,16 @@ app.get('/listing/:id/edit',async(req,res)=>{
 app.put('/listing/:id',async (req,res) => {
     let {id}=req.params;
     await Listing.findByIdAndUpdate(id,{...req.body.listing});
-    res.redirect(`/listings/${id}`);
+    res.redirect(`/listing/${id}`);
 })
 
 
 //delets GET request
-app.delete('/listings/:id',async (req,res) => {
+app.delete('/listing/:id',async (req,res) => {
     let {id}=req.params;
     let deletedListing= await Listing.findByIdAndDelete(id);
     console.log('Listing Deleted',deletedListing);
-    res.redirect('/listings');
+    res.redirect('/listing');
 })
 
 

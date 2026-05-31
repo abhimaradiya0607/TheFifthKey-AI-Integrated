@@ -32,6 +32,12 @@ body{
 .nav-link:hover{
     color: #C9A227 !important;
 }
+.brand-name{
+    font-family: "Cormorant Garamond", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: medium;
+}
 
 .add-listing-btn{
     background-color: #C9A227;
@@ -110,3 +116,24 @@ body{
     background-color: white;
 }
 
+.btn{
+    background-color: #C9A227 !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+/*show image*/
+
+.show-img{
+    height: 40vh;
+}
+
+.btns{
+    display: flex;
+
+}
+
+.show-card{
+    padding-left: 0;
+    padding-right: 0;
+}

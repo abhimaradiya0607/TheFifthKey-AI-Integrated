@@ -16,7 +16,8 @@ let listingSchema=mongoose.Schema({
         },
         url:{
             type:String,
-            set:(v)=>v===''?"https://unsplash.com/photos/turned-on-hotel-led-signage-bpGQjjhtfZs":v,
+            set: (v) =>v === "" ? "https://unsplash.com/photos/turned-on-hotel-led-signage-TArrnDJuxak" : v,
+            default:"https://unsplash.com/photos/turned-on-hotel-led-signage-TArrnDJuxak",
         }
     },
     price:{

@@ -1,5 +1,5 @@
 <%layout('/layouts/boilerplate')%>
-<div class="row">
+<div class="row mt-3">
     <div class="col-8 offset-2">
 <body>
     <h1>Add Your Property</h1>
@@ -14,7 +14,7 @@
         </div>
         <div class="mb-3">
         <label for="image" class="form-label">Image Link</label>
-        <input name="listing[image]" type="text" class="form-control" placeholder="Enter your IMAGE URL">
+        <input name="listing[image][url]" type="text" class="form-control" placeholder="Enter your IMAGE URL">
         </div>
         <div class="row">
             <div class="mb-3 col-md-4">
@@ -30,8 +30,8 @@
         <label for="location" class="form-label">Location</label>
         <input type="text" name="listing[location]" class="form-control" placeholder="Enter your Property location">
         </div>
-        <div class="mb-3">
-        <button type="submit" class="btn btn-dark">Add</button>
+        <div class="mb-3 mt-3">
+        <button type="submit" class="btn">Add</button>
     </div>
     </form>
 </body>
