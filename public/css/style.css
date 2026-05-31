@@ -1,0 +1,74 @@
+body{
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar{
+    border-bottom: 1px solid #eeeeee;
+    padding: 0.8rem 0;
+}
+
+.logo{
+    height: 65px;
+    width: auto;
+    object-fit: contain;
+}
+
+.brand-name{
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #222222;
+}
+
+.nav-link{
+    color: #222222 !important;
+    font-weight: 500;
+    margin-left: 1rem;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover{
+    color: #C9A227 !important;
+}
+
+.add-listing-btn{
+    background-color: #C9A227;
+    color: white !important;
+    border-radius: 30px;
+    padding: 0.5rem 1rem !important;
+}
+
+.add-listing-btn:hover{
+    background-color: #C9A227;
+    transform: translateY(-1px);
+}
+
+
+.footer {
+    background-color: #ffffff;
+    border-top: 1px solid #eaeaea;
+    padding: 1rem 0;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: #222222;
+    font-weight: 500;
+    margin-left: 1rem;
+    transition: all 0.2s ease;
+}
+
+.footer-link:hover {
+    color: #C9A227;
+}
+
+.social-icon {
+    font-size: 1.2rem;
+}
+
+.footer hr {
+    margin: 1.5rem 0;
+}
+
+.footer .text-muted {
+    color: #717171 !important;
+}

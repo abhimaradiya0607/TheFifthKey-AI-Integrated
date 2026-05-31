@@ -12,8 +12,15 @@
   "type": "commonjs",
   "dependencies": {
     "ejs": "^6.0.1",
+    "ejs-mate": "^4.0.0",
     "express": "^5.2.1",
+    "flowbite": "^4.0.2",
+    "mate": "^0.21.0",
     "method-override": "^3.0.0",
     "mongoose": "^9.6.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "tailwindcss": "^4.3.0"
   }
 }
