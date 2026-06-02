@@ -21,7 +21,9 @@ let listingSchema=mongoose.Schema({
         }
     },
     price:{
-        type:Number
+        type:Number,
+        required:true,
+        min:0
     },
     location:{
         type:String
