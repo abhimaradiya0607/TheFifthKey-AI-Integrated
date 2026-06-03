@@ -34,6 +34,16 @@ async function main() {
 }
 
 
+const validateListing=(req,res,next)=>{
+    let {error}=listingSchema.validate(req.body);
+    if(error){
+        let errMsg=error.details.map((el)=>el.message).join(",");
+        throw new ExpressError(400,errMsg)
+    }else{
+        next();
+    }
+}
+
 //Index Route
 app.get('/listing', wrapAsync(async (req, res) => {
     let allListings = await Listing.find({});
@@ -53,12 +63,7 @@ app.get('/listing/:id', wrapAsync(async (req, res) => {
 }))
 
 //New Listing is added 
-app.post('/listing', wrapAsync(async (req, res) => {
-        let result=listingSchema.validate(req.body);
-        console.log(result);
-        if(result.error){
-            throw new ExpressError(400,result.error)
-        }
+app.post('/listing', validateListing,wrapAsync(async (req, res) => {
         const newListing =new Listing(req.body.listing);
         await newListing.save();
         res.redirect('/listing')
@@ -72,7 +77,7 @@ app.get('/listing/:id/edit', wrapAsync(async (req, res) => {
 }))
 
 //Edit Route and Save
-app.put('/listing/:id', wrapAsync(async (req, res) => {
+app.put('/listing/:id',validateListing, wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     res.redirect(`/listing/${id}`);
