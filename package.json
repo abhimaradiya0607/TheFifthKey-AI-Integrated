@@ -15,6 +15,7 @@
     "ejs-mate": "^4.0.0",
     "express": "^5.2.1",
     "flowbite": "^4.0.2",
+    "joi": "^18.2.1",
     "mate": "^0.21.0",
     "method-override": "^3.0.0",
     "mongoose": "^9.6.3"
