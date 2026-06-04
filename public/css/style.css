@@ -402,3 +402,44 @@ body{
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(201, 162, 39, 0.35);
   }
+
+  .review-error {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.4rem;
+    display: none;
+  }
+
+  .review-card {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    cursor: default;
+  }
+  
+  .review-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-color: #E8A020;
+  }
+
+  .btn-delete-review {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    font-size: 13px;
+    color: #dc3545;
+    background: transparent;
+    border: 1px solid #dc3545;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  
+  .btn-delete-review:hover {
+    background: #dc3545;
+    color: #fff;
+  }

@@ -77,8 +77,8 @@
               <% } %>
             </div>
             <div id="ratingError" style="display:none; color:#dc3545; font-size:0.875rem; margin-top:0.4rem;">
-                Please select a rating.
-              </div>
+              Please select a rating.
+            </div>
           </div>
 
           <!-- Comment -->
@@ -100,25 +100,85 @@
       </div>
     </div>
   </div>
+
+  <!-- All Reviews -->
+  <div class="row mt-4">
+    <div class="col-lg-8 offset-lg-2">
+
+      <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:1rem;">
+        <h4 style="margin:0;">All Reviews</h4>
+        <span style="color:#888; font-size:0.875rem;"><%= listing.reviews.length %> review<%= listing.reviews.length !== 1 ? 's' : '' %></span>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px;">
+        <% for(let review of listing.reviews) { %>
+        <div class="review-card">
+
+          <!-- Stars -->
+          <div style="margin-bottom:10px; font-size:15px;">
+            <% for(let i = 1; i <= 5; i++) { %>
+              <% const starColor = i <= review.rating ? '#E8A020' : '#ddd'; %>
+              <span style="color:<%= starColor %>;">&#9733;</span>
+            <% } %>
+          </div>
+
+          <!-- Comment -->
+          <p style="font-size:14px; color:#444; line-height:1.6; margin:0;">
+            <%= review.comment %>
+          </p>
+          <form method="post" action="/listing/<%=listing._id%>/reviews/<%=review._id%>?_method=Delete">
+            <button type="submit" class="btn-delete-review">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+              </svg>
+              Delete Review
+            </button>
+          </form>
+
+        </div>
+        <% } %>
+      </div>
+
+    </div>
+  </div>
+
 </div>
 
+<style>
+  .review-card {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    cursor: default;
+  }
+
+  .review-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-color: #E8A020;
+  }
+</style>
+
 <script>
-    document.querySelector('.needs-validation').addEventListener('submit', function(event) {
-      const ratingSelected = this.querySelector('input[name="review[rating]"]:checked');
-      const ratingError = document.getElementById('ratingError');
-      const formValid = this.checkValidity();
-  
-      if (!ratingSelected) {
-        ratingError.style.display = 'block';
-        event.preventDefault();
-        event.stopPropagation();
-      }
-  
-      if (!formValid) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-  
-      this.classList.add('was-validated');
-    });
-  </script>
+  document.querySelector('.needs-validation').addEventListener('submit', function(event) {
+    const ratingSelected = this.querySelector('input[name="review[rating]"]:checked');
+    const ratingError = document.getElementById('ratingError');
+    const formValid = this.checkValidity();
+
+    if (!ratingSelected) {
+      ratingError.style.display = 'block';
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    if (!formValid) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    this.classList.add('was-validated');
+  });
+</script>
