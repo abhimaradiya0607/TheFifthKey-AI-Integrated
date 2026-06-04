@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const Listing = require('./models/listing.js');
+const Review=require('./models/reviews.js')
 const path = require('path')
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate')
@@ -91,6 +92,19 @@ app.delete('/listing/:id', wrapAsync(async (req, res) => {
     console.log('Listing Deleted', deletedListing);
     res.redirect('/listing');
 }))
+
+//Reviews Post Route
+app.post('/listing/:id/reviews',async (req,res) => {
+    let listing=await Listing.findById(req.params.id);
+    let newReview=new Review(req.body.review)
+
+    listing.reviews.push(newReview);
+
+    await newReview.save();
+    await listing.save();
+    console.log('New Review Saved');
+    res.redirect(`/listing/${req.params.id}`);
+})
 
 
 // app.get('/testlisting',async (req,res)=>{

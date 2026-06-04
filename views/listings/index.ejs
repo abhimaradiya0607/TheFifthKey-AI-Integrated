@@ -6,16 +6,17 @@
         <div class="col mb-4">
             <a href="/listing/<%= listing._id %>" class="listing-link">
                 <div class="card h-100">
-                    <img
-                        src="<%= listing.image.url %>"
-                        class="card-img-top"
-                        alt="<%= listing.title %>"
-                        style="height: 20rem;"
-                        onerror="this.src='/images/default-img.jpg';">
+                    <div class="card-img-wrapper">
+                        <img
+                            src="<%= listing.image.url %>"
+                            class="card-img-top"
+                            alt="<%= listing.title %>"
+                            onerror="this.src='/images/default-img.jpg';">
+                    </div>
                     <div class="card-body">
                         <p class="card-text">
-                            <b><%= listing.title %></b><br>
-                            ₹ <%= listing.price.toLocaleString("en-IN") %> / night
+                            <span class="listing-title d-block"><%= listing.title %></span>
+                            <span class="listing-price">₹ <span><%= listing.price.toLocaleString("en-IN") %></span> / night</span>
                         </p>
                     </div>
                 </div>
