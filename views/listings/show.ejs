@@ -65,7 +65,7 @@
       <div class="review-section">
         <h4 class="review-title">Leave a Review</h4>
 
-        <form method="post" action="/listing/<%=listing._id%>/reviews">
+        <form method="post" action="/listing/<%=listing._id%>/reviews" novalidate class="needs-validation">
 
           <!-- Star Rating -->
           <div class="mb-4">
@@ -76,26 +76,49 @@
                 <label for="star<%=i%>" title="<%=i%> stars">&#9733;</label>
               <% } %>
             </div>
+            <div id="ratingError" style="display:none; color:#dc3545; font-size:0.875rem; margin-top:0.4rem;">
+                Please select a rating.
+              </div>
           </div>
 
           <!-- Comment -->
           <div class="mb-4">
             <label class="review-label" for="comment">Your Comment</label>
             <textarea
+              required
               name="review[comment]"
               id="comment"
               rows="4"
               class="review-textarea"
               placeholder="Share your experience with this property..."></textarea>
+            <div class="invalid-feedback">Please add some comments for review.</div>
           </div>
 
-          <button type="submit" class="btn-submit">
-            Submit Review
-          </button>
+          <button type="submit" class="btn-submit">Submit Review</button>
 
         </form>
       </div>
     </div>
   </div>
-
 </div>
+
+<script>
+    document.querySelector('.needs-validation').addEventListener('submit', function(event) {
+      const ratingSelected = this.querySelector('input[name="review[rating]"]:checked');
+      const ratingError = document.getElementById('ratingError');
+      const formValid = this.checkValidity();
+  
+      if (!ratingSelected) {
+        ratingError.style.display = 'block';
+        event.preventDefault();
+        event.stopPropagation();
+      }
+  
+      if (!formValid) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+  
+      this.classList.add('was-validated');
+    });
+  </script>
