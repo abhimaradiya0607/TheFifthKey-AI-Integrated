@@ -9,6 +9,7 @@ const reviews = require('./routes/reviews.js')
 const cookieParser=require('cookie-parser');
 const mongoose = require('mongoose');
 const session=require('express-session');
+const flash=require("connect-flash");
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, "views"))
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, '/public')))
 app.use(cookieParser())
+
 
 app.engine("ejs", ejsMate);
 
@@ -31,6 +33,7 @@ const sessionOption={
 };
 
 app.use(session(sessionOption));
+app.use(flash())
 
 
 const PORT = 8080;
@@ -46,7 +49,20 @@ main()
     })
 async function main() {
     await mongoose.connect(MONGODB_URL)
+
 }
+
+
+app.get('/', (req, res) => {
+    res.send('Server working')
+})
+
+app.use((req,res,next)=>{
+    res.locals.success=req.flash("success");
+    res.locals.error=req.flash("error");
+    res.locals.info=req.flash("info");
+    next();
+})
 
 //Listing Route
 app.use('/listing', listing);
@@ -54,9 +70,6 @@ app.use('/listing', listing);
 //Review ROute
 app.use('/listing/:id/reviews', reviews);
 
-app.get('/', (req, res) => {
-    res.send('Server working')
-})
 
 app.use((req, res, next) => {
     next(new ExpressError(404, "Page Not Found"));

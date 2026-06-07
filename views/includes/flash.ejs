@@ -1,0 +1,24 @@
+<% if(success && success.length){ %>
+    <div id="flash-msg"
+         class="alert alert-success alert-dismissible flash-alert"
+         role="alert">
+        <%= success %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    <% } %>
+    <% if(error && error.length){ %>
+    <div id="flash-msg"
+         class="alert alert-danger alert-dismissible flash-alert"
+         role="alert">
+        <%= error %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    <% } %>
+    <% if(info && info.length){ %>
+    <div id="flash-msg"
+         class="alert alert-warning alert-dismissible flash-alert"
+         role="alert">
+        <%= info %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    <% } %>
