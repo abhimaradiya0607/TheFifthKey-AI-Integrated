@@ -6,17 +6,32 @@ const ejsMate = require('ejs-mate')
 const ExpressError = require('./utils/ExpressError.js')
 const listing = require("./routes/listing.js")
 const reviews = require('./routes/reviews.js')
-
+const cookieParser=require('cookie-parser');
+const mongoose = require('mongoose');
+const session=require('express-session');
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, "views"))
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, '/public')))
+app.use(cookieParser())
 
 app.engine("ejs", ejsMate);
 
-const mongoose = require('mongoose')
+const sessionOption={
+    secret:"mysecretcode",
+    resave:false,
+    saveUninitialized:true,
+    cookie:{
+        expires:Date.now()+ 7 * 24 * 60* 60* 1000,
+        maxAge:7 * 24 * 60* 60* 1000,
+        httponly:true,
+    }
+};
+
+app.use(session(sessionOption));
+
 
 const PORT = 8080;
 
