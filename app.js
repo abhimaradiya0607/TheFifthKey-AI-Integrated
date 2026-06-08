@@ -4,8 +4,11 @@ const path = require('path');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError.js');
-const listing = require("./routes/listing.js");
-const reviews = require('./routes/reviews.js');
+
+const listingrouter = require("./routes/listing.js");
+const reviewsrouter = require('./routes/reviews.js');
+const userrouter=require("./routes/user.js")
+
 const cookieParser=require('cookie-parser');
 const mongoose = require('mongoose');
 const session=require('express-session');
@@ -47,9 +50,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
-
-
 const PORT = 8080;
 
 MONGODB_URL = "mongodb://localhost:27017/hotels"
@@ -79,11 +79,23 @@ app.use((req,res,next)=>{
 })
 
 //Listing Route
-app.use('/listing', listing);
+app.use('/listing', listingrouter);
 
 //Review ROute
-app.use('/listing/:id/reviews', reviews);
+app.use('/listing/:id/reviews', reviewsrouter);
 
+app.use("/", userrouter);
+
+app.get('/demouser',async (req,res) => {
+    let fakeUser=new User({
+        email:"test@gmail.com",
+        username:"user-test"
+    });
+
+    let registerdUser=await  User.register(fakeUser,"hello-world");
+    res.send(registerdUser);
+
+})
 
 app.use((req, res, next) => {
     next(new ExpressError(404, "Page Not Found"));
