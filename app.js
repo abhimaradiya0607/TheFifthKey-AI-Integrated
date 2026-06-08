@@ -1,15 +1,18 @@
-const express = require('express')
-const app = express()
-const path = require('path')
+const express = require('express');
+const app = express();
+const path = require('path');
 const methodOverride = require('method-override');
-const ejsMate = require('ejs-mate')
-const ExpressError = require('./utils/ExpressError.js')
-const listing = require("./routes/listing.js")
-const reviews = require('./routes/reviews.js')
+const ejsMate = require('ejs-mate');
+const ExpressError = require('./utils/ExpressError.js');
+const listing = require("./routes/listing.js");
+const reviews = require('./routes/reviews.js');
 const cookieParser=require('cookie-parser');
 const mongoose = require('mongoose');
 const session=require('express-session');
 const flash=require("connect-flash");
+const passport=require("passport");
+const LocalStrategy=require("passport-local");
+const User=require("./models/user.js");
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, "views"))
@@ -34,6 +37,17 @@ const sessionOption={
 
 app.use(session(sessionOption));
 app.use(flash())
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
 
 
 const PORT = 8080;
