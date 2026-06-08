@@ -33,7 +33,8 @@ router.get('/login',(req,res)=>{
 
 router.post('/login',
     passport.authenticate('local',{failureRedirect:'/login',failureFlash:true}),async(req,res)=>{
-        req.flash("success",`Welcome To the fifth key`);
+        req.flash("success",`Welcome ${req.user.username}`);
+        res.redirect("/listing");
 })
 
 module.exports=router;
