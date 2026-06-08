@@ -1,40 +1,229 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-<body>
-    <nav class="navbar navbar-expand-md bg-white shadow-sm sticky-top">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="/">
-                <img src="/images/logo.png" alt="The Fifth Key Logo" class="logo">
-                <span class="brand-name ms-2">The Fifth Key</span>
-            </a>
-            <button class="navbar-toggler" type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNavAltMarkup">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav ms-auto">
-                    <a class="nav-link" href="/">Home</a>
-                    <a class="nav-link" href="/listing">All Listings</a>
-                    <a class="nav-link" href="/listing/new">
-                        Add Listing
-                    </a>
-                </div>
-                <div class="navbar-nav ms-auto">
-                    <%if(!currUser){%>
-                        <a class="nav-link" href="/signup">Sign Up</a>
-                        <a class="nav-link" href="/login">Login</a>
-                    <%}%>
-                    <%if(currUser){%>
-                    <a class="nav-link" href="/logout">Logout</a>
-                    <%}%>
-                </div>
-            </div>
-        </div>
-    </nav>
-</body>
-</html>
+<% if (success && success.length> 0) { %>
+    <div id="flash-success" data-message="<%= success[0] %>" style="display: none"></div>
+    <% } %>
+        <% if (error && error.length> 0) { %>
+            <div id="flash-error" data-message="<%= error[0] %>" style="display: none"></div>
+            <% } %>
+                <% if (info && info.length> 0) { %>
+                    <div id="flash-info" data-message="<%= info[0] %>" style="display: none"></div>
+                    <% } %>
+                        <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top" id="tfkNavbar">
+                            <div class="container">
+                                <a class="navbar-brand d-flex align-items-center gap-2 tfk-brand" href="/">
+                                    <div class="tfk-logo-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28"
+                                            height="28">
+                                            <path
+                                                d="M12.65 10A6 6 0 1 0 11 16H13l1.5 1.5L16 16l1.5 1.5L19 16l-1.5-1.5L19 13H11a4 4 0 1 1 1.65-3z" />
+                                        </svg>
+                                    </div>
+
+                                    <span class="tfk-brand-name"> The <span>Fifth</span> Key </span>
+                                </a>
+
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#navbarContent">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+
+                                <div class="collapse navbar-collapse" id="navbarContent">
+                                    <ul class="navbar-nav mx-auto">
+                                        <li class="nav-item">
+                                            <a href="/" class="nav-link">Home</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="/listing" class="nav-link">Browse Properties</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="d-flex align-items-center gap-3">
+                                        <% if (!currUser) { %>
+
+                                            <button class="btn btn-outline-dark" data-bs-toggle="modal"
+                                                data-bs-target="#authModal" id="openLoginBtn">
+                                                Login
+                                            </button>
+
+                                            <button class="btn btn-dark" data-bs-toggle="modal"
+                                                data-bs-target="#authModal" id="openSignupBtn">
+                                                <i class="bi bi-stars"></i>
+                                                Sign Up
+                                            </button>
+
+                                            <% } else { %>
+
+                                                <div class="dropdown">
+                                                    <button class="btn dropdown-toggle d-flex align-items-center gap-2"
+                                                        data-bs-toggle="dropdown">
+                                                        <div class="tfk-avatar">
+                                                            <%= currUser.username.charAt(0).toUpperCase() %>
+                                                        </div>
+
+                                                        <span>
+                                                            <%= currUser.username %>
+                                                        </span>
+                                                    </button>
+
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li>
+                                                            <a class="dropdown-item" href="/profile">
+                                                                <i class="bi bi-person"></i>
+                                                                Profile
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a class="dropdown-item" href="/bookings">
+                                                                <i class="bi bi-calendar-check"></i>
+                                                                My Bookings
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a class="dropdown-item" href="/saved">
+                                                                <i class="bi bi-heart"></i>
+                                                                Saved Properties
+                                                            </a>
+                                                        </li>
+
+                                                        <li>
+                                                            <hr class="dropdown-divider" />
+                                                        </li>
+
+                                                        <li>
+                                                            <form action="/logout" method="GET">
+                                                                <button type="submit" class="dropdown-item text-danger">
+                                                                    <i class="bi bi-box-arrow-right"></i>
+                                                                    Logout
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                        <div class="modal fade" id="authModal" tabindex="-1" aria-label="Authentication"
+                            aria-modal="true" role="dialog">
+                            <div class="modal-dialog modal-dialog-centered" style="max-width: 860px">
+                                <div class="modal-content border-0 overflow-hidden" style="
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(11, 31, 58, 0.18);
+      ">
+                                    <div class="modal-body p-0 d-flex" style="min-height: 540px">
+                                        <div class="auth-image-panel d-none d-md-flex" style="
+            flex: 0 0 42%;
+            position: relative;
+            overflow: hidden;
+            background: var(--navy);
+          ">
+                                            <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80"
+                                                alt="" style="
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              opacity: 0.45;
+              filter: saturate(0.7);
+            " />
+
+                                            <button type="button" class="tfk-modal-close" data-bs-dismiss="modal"
+                                                aria-label="Close">
+                                                <i class="bi bi-x-lg"></i>
+                                            </button>
+
+                                            <div class="auth-image-overlay">
+                                                <div class="brand-mark">
+                                                    <div class="logo-circle">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                            <path
+                                                                d="M12.65 10A6 6 0 1 0 11 16H13l1.5 1.5L16 16l1.5 1.5L19 16l-1.5-1.5L19 13H11a4 4 0 1 1 1.65-3z" />
+                                                        </svg>
+                                                    </div>
+                                                    <span>The Fifth Key</span>
+                                                </div>
+
+                                                <div>
+                                                    <div class="auth-ornament"></div>
+                                                    <h2 class="auth-panel-headline">
+                                                        Unlock Your Next<br />
+                                                        <em>Luxury Stay</em>
+                                                    </h2>
+                                                    <p class="auth-panel-sub">
+                                                        Experience handpicked luxury properties around the world.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="auth-form-panel" style="
+            flex: 1;
+            padding: 2.5rem 2.75rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #fff;
+            position: relative;
+          ">
+                                            <button type="button" class="d-md-none position-absolute btn-close"
+                                                data-bs-dismiss="modal" aria-label="Close"
+                                                style="top: 1rem; right: 1rem"></button>
+
+                                            <div id="loginFormWrap"><%- include('../users/loginform') %></div>
+
+                                            <div id="signupFormWrap" style="display: none">
+                                                <%- include('../users/signupform') %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            function showLogin() {
+                                const loginWrap = document.getElementById("loginFormWrap");
+                                const signupWrap = document.getElementById("signupFormWrap");
+                                if (!loginWrap || !signupWrap) return;
+                                signupWrap.style.display = "none";
+                                loginWrap.style.display = "block";
+                            }
+
+                            function showSignup() {
+                                const loginWrap = document.getElementById("loginFormWrap");
+                                const signupWrap = document.getElementById("signupFormWrap");
+                                if (!loginWrap || !signupWrap) return;
+                                loginWrap.style.display = "none";
+                                signupWrap.style.display = "block";
+                            }
+
+                            document.addEventListener("DOMContentLoaded", function () {
+                                const loginBtn = document.getElementById("openLoginBtn");
+                                const signupBtn = document.getElementById("openSignupBtn");
+
+                                if (loginBtn) loginBtn.addEventListener("click", showLogin);
+                                if (signupBtn) signupBtn.addEventListener("click", showSignup);
+
+                                const authModal = document.getElementById("authModal");
+
+                                if (authModal) {
+                                    authModal.addEventListener("hidden.bs.modal", function () {
+                                        showLogin();
+                                    });
+                                }
+                                const flashError = document.getElementById("flash-error");
+
+                                      if (flashError && authModal) {
+        showSignup();
+
+        const modal = new bootstrap.Modal(authModal);
+
+        modal.show();
+
+    }
+                            });
+
+                            
+                        </script>

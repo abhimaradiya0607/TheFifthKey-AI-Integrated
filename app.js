@@ -72,10 +72,16 @@ app.get('/', (req, res) => {
 })
 
 app.use((req,res,next)=>{
+    if (req.flash){
     res.locals.success=req.flash("success");
     res.locals.error=req.flash("error");
     res.locals.info=req.flash("info");
     res.locals.currUser=req.user;
+    }else{
+    res.locals.success = [];
+    res.locals.error   = [];
+    res.locals.info    = [];
+    }
     next();
 })
 
