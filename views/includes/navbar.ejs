@@ -198,23 +198,18 @@
                                 loginWrap.style.display = "none";
                                 signupWrap.style.display = "block";
                             }
-
                             document.addEventListener("DOMContentLoaded", function () {
                                 const loginBtn = document.getElementById("openLoginBtn");
                                 const signupBtn = document.getElementById("openSignupBtn");
-
                                 if (loginBtn) loginBtn.addEventListener("click", showLogin);
                                 if (signupBtn) signupBtn.addEventListener("click", showSignup);
-
                                 const authModal = document.getElementById("authModal");
-
                                 if (authModal) {
                                     authModal.addEventListener("hidden.bs.modal", function () {
                                         showLogin();
                                     });
                                 }
                                 const flashError = document.getElementById("flash-error");
-
                                       if (flashError && authModal) {
         showSignup();
 
